@@ -1,6 +1,6 @@
 # Meet
 
-Meet is a new take on social networking, where technology should take the role of faciliating physical meetups rather than replacing them.
+Bringing people together in the real world.
 
 ## Folder structure
 
@@ -8,6 +8,5 @@ Meet is a new take on social networking, where technology should take the role o
 .
 ├── ...
 ├── web                    # Web app frontend
-├── users_api              # User REST API
-├── events_api             # Events GraphQL API
+├── auth                   # Auth REST API
 ```
