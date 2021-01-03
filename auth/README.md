@@ -10,6 +10,8 @@ REST API for managing users and authentication.
 
 ## Start developing
 
+Install Golang(https://golang.org/doc/install)
+
 Install [Golang migrate CLI](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate) 
 
 Create a `.env` file with the following content

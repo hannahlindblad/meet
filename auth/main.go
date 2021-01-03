@@ -1,15 +1,14 @@
 package main
 
 import (
+	"auth/api"
+	"auth/db"
 	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"users_api/api"
-	"users_api/db"
-	"users_api/middleware"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -20,9 +19,12 @@ func loadEnv() (err error) {
 	if err != nil {
 		return
 	}
+
+	return
 }
 
 func createConnectionDB() (db *sql.DB, err error) {
+	fmt.Println(os.Getenv("POSTGRES_URL"))
 	db, err = sql.Open("postgres", os.Getenv("POSTGRES_URL"))
 	if err != nil {
 		return
@@ -42,15 +44,16 @@ func main() {
 		log.Fatalf("Failed to load environment: %s", err.Error())
 	}
 
-	if conn, err := CreateConnectionDB(); err != nil {
+	conn, err := createConnectionDB()
+
+	if err != nil {
 		log.Fatalf("Failed to establish connection to database: %s", err.Error())
 	}
 
 	defer conn.Close()
 
 	userStore := db.CreateUserStore(conn)
-	userService := middleware.CreateUserService(userStore)
-	authApi := api.CreateAuthApi(userService)
+	authApi := api.CreateAuthApi(userStore)
 
 	router := api.InitRouter(authApi)
 
