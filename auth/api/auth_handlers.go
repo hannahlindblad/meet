@@ -48,7 +48,7 @@ func (u *AuthApi) SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	email, pwdHash, err := u.store.CreateUser(
+	pwdHash, err := u.store.CreateUser(
 		user.Email,
 		user.Password,
 		user.FirstName,
@@ -70,7 +70,7 @@ func (u *AuthApi) SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, _ := json.Marshal(User{Email: email, Password: pwdHash})
+	res, _ := json.Marshal(User{Email: user.Email, Password: pwdHash})
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusCreated)
 	w.Write(res)

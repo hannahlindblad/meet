@@ -17,12 +17,12 @@ func CreateUserStore(conn *sql.DB) *UserStore {
 	}
 }
 
-func (u *UserStore) CreateUser(email string, password string, firstName string, lastName string) (string, string, error) {
-	pwdHash, err := u.hashPassword(password)
+func (u *UserStore) CreateUser(email string, password string, firstName string, lastName string) (pwdHash string, err error) {
+	pwdHash, err = u.hashPassword(password)
 
 	if err != nil {
 		log.Printf("Failed to create new user: %s", err.Error())
-		return "", "", err
+		return "", err
 	}
 
 	_, err = u.db.Exec(
@@ -33,7 +33,7 @@ func (u *UserStore) CreateUser(email string, password string, firstName string, 
 		lastName,
 	)
 
-	return email, pwdHash, err
+	return pwdHash, err
 }
 
 func (u *UserStore) hashPassword(password string) (string, error) {
