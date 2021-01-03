@@ -15,12 +15,14 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func CreateConnectionDB() (db *sql.DB, err error) {
+func loadEnv() (err error) {
 	err = godotenv.Load(".env")
 	if err != nil {
 		return
 	}
+}
 
+func createConnectionDB() (db *sql.DB, err error) {
 	db, err = sql.Open("postgres", os.Getenv("POSTGRES_URL"))
 	if err != nil {
 		return
@@ -36,18 +38,21 @@ func CreateConnectionDB() (db *sql.DB, err error) {
 }
 
 func main() {
-	conn, err := CreateConnectionDB()
-	defer conn.Close()
+	if err := loadEnv(); err != nil {
+		log.Fatalf("Failed to load environment: %s", err.Error())
+	}
 
-	if err != nil {
+	if conn, err := CreateConnectionDB(); err != nil {
 		log.Fatalf("Failed to establish connection to database: %s", err.Error())
 	}
 
+	defer conn.Close()
+
 	userStore := db.CreateUserStore(conn)
 	userService := middleware.CreateUserService(userStore)
-	userApi := api.CreateUserApi(userService)
+	authApi := api.CreateAuthApi(userService)
 
-	router := api.InitRouter(userApi)
+	router := api.InitRouter(authApi)
 
 	srv := &http.Server{
 		Handler:      router.Router(),

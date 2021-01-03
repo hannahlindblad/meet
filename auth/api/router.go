@@ -8,12 +8,12 @@ import (
 )
 
 type Router struct {
-	userApi *UserApi
+	authApi *AuthApi
 }
 
-func InitRouter(userApi *UserApi) *Router {
+func InitRouter(authApi *AuthApi) *Router {
 	return &Router{
-		userApi: userApi,
+		authApi: authApi,
 	}
 }
 
@@ -24,8 +24,7 @@ func (r *Router) Router() *mux.Router {
 		json.NewEncoder(w).Encode(map[string]bool{"ok": true})
 	}).Methods("GET")
 
-	router.HandleFunc("/users", r.userApi.GetAllUsers).Methods("GET")
-	router.HandleFunc("/users", r.userApi.CreateUser).Methods("POST")
+	router.HandleFunc("/signup", r.authApi.SignUp).Methods("POST")
 
 	return router
 }

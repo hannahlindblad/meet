@@ -10,7 +10,7 @@ import (
 	"github.com/lib/pq"
 )
 
-type UserApi struct {
+type AuthApi struct {
 	service *middleware.UserService
 }
 
@@ -18,27 +18,13 @@ type ErrorMessage struct {
 	Message string `json:"message"`
 }
 
-func CreateUserApi(service *middleware.UserService) *UserApi {
-	return &UserApi{
+func CreateAuthApi(service *middleware.UserService) *AuthApi {
+	return &AuthApi{
 		service: service,
 	}
 }
 
-func (u *UserApi) GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	users, err := u.service.GetAllUsers()
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	res, _ := json.Marshal(users)
-	w.Header().Set("Content-Type", "pkglication/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(res)
-}
-
-func (u *UserApi) CreateUser(w http.ResponseWriter, r *http.Request) {
+func (u *AuthApi) SignUp(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 

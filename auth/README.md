@@ -10,9 +10,9 @@ REST API for managing users and authentication.
 
 ## Start developing
 
-Install [Golang migrate](https://github.com/golang-migrate/migrate/blob/master/database/postgres/TUTORIAL.md) 
+Install [Golang migrate CLI](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate) 
 
-Create a `.env` file according with the following content
+Create a `.env` file with the following content
 
 ```
 POSTGRES_URL="user=postgres password=postgres dbname=users port=5433 sslmode=disable"
