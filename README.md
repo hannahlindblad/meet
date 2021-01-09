@@ -7,6 +7,5 @@ Bringing people together in the real world.
 ```
 .
 ├── ...
-├── web                    # Web app frontend
 ├── auth                   # Auth REST API
 ```
