@@ -1,24 +1,22 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
-
-const GET_BOOKS = gql`
-  query GetBooks {
-    books {
-      title
-    }
-  }
-`;
+import { SignUp } from "./components/SignUp";
+import { Login } from "./components/Login";
 
 function App() {
-  const { loading, error, data } = useQuery(GET_BOOKS);
-  console.log({loading}, {data}, data.books)
-  if (loading) return <p>Loading ...</p>;
   return (
-    <div className="App">
-      {data.books.map(b => b.title)}
-    </div>
+    <Router>
+      <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/sign-up">
+            <SignUp />
+          </Route>
+        </Switch>
+    </Router>
   );
- }
+}
  
  export default App;

@@ -1,3 +1,5 @@
-# API Gatway
+# API Gateway
 
-`node index.js`
+Apollo Server
+
+`nodemon gateway`
