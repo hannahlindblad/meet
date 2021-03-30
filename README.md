@@ -7,5 +7,7 @@ Bringing people together in the real world.
 ```
 .
 ├── ...
-├── auth                   # Auth REST API
+├── accounts        # Accounts REST API
+├── gateway         # Apollo web server
+├── web             # React web client
 ```

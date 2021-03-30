@@ -1,6 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server');
 const { RESTDataSource } = require('apollo-datasource-rest');
-const { MemcachedCache } = require('apollo-server-cache-memcached');
 
 class AuthAPI extends RESTDataSource {
   constructor() {
@@ -13,11 +12,7 @@ class AuthAPI extends RESTDataSource {
   }
 }
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
 const typeDefs = gql`
-  # This "Book" type defines the queryable fields for every book in our data source.
   type Book {
     title: String
     author: String
@@ -51,8 +46,6 @@ const books = [
     },
   ];
 
-  // Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
     Query: {
         books: () => books
@@ -60,18 +53,15 @@ const resolvers = {
     Mutation: {
         signUp: async (_source, user, { dataSources }) => {
             console.log(user)
-            // return {"first_name": "ha", "last_name": "ha"}
             return dataSources.authAPI.signUp(user);
         },
     }
   };
 
-  // The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
-    // cache: new MemcachedCache(
+    // cache: new MemcachedCache( TODO: Add cache
     //     ['memcached-server-1', 'memcached-server-2', 'memcached-server-3'],
     //     { retries: 10, retry: 10000 }, // Options
     // ),
@@ -82,7 +72,6 @@ const server = new ApolloServer({
     }
 });
 
-// The `listen` method launches a web server.
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });

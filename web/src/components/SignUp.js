@@ -19,7 +19,7 @@ export function SignUp() {
       firstName: '',
       lastName: '',
       email: '',
-      passwpord: ''
+      password: ''
     },
     onSubmit: values => {
       signUp({variables: { 
@@ -38,56 +38,56 @@ export function SignUp() {
           Create an account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label for="email-address" className="sr-only">Email address</label>
+              <label className="sr-only">Email address</label>
               <input 
                 id="email-address"
                 name="email"
                 type="email"      
                 onChange={formik.handleChange}
                 value={formik.values.email}
-                autocomplete="email"
+                autoComplete="email"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                placeholder="Email address" />
             </div>
             <div>
-              <label for="password" className="sr-only">Password</label>
+              <label className="sr-only">Password</label>
               <input 
                 id="password"
                 name="password"
                 type="password"
                 onChange={formik.handleChange}
                 value={formik.values.password}
-                autocomplete="current-password"
-                required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                required
                 placeholder="Password" />
             </div>
             <div>
-              <label for="first_name" className="sr-only">First name</label>
+              <label className="sr-only">First name</label>
               <input 
-                id="first_name"
-                name="first_name"
-                type="password"
+                id="firstName"
+                name="firstName"
+                type="text"
                 onChange={formik.handleChange}
-                value={formik.values.password}
-                required
+                value={formik.values.firstName}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                required
                 placeholder="First name" />
             </div>
             <div>
-              <label for="last_name" className="sr-only">Last name</label>
+              <label className="sr-only">Last name</label>
               <input 
-                id="last_name"
-                name="last_name"
-                type="last_name"
+                id="lastName"
+                name="lastName"
+                type="text"
                 onChange={formik.handleChange}
-                value={formik.values.password}
-                required
+                value={formik.values.lastName}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                required
                 placeholder="Last name" />
             </div>
           </div>
